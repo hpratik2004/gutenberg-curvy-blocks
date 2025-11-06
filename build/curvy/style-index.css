@@ -12,5 +12,22 @@
   background: #66af82;
   padding: 80px 50px;
 }
+.wp-block-create-block-curvy .curve {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.wp-block-create-block-curvy .curve.top-curve {
+  top: 0;
+}
+.wp-block-create-block-curvy .curve.bottom-curve {
+  bottom: 0;
+}
+.wp-block-create-block-curvy .curve svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 /*# sourceMappingURL=style-index.css.map*/
