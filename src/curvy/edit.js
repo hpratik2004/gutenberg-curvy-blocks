@@ -11,8 +11,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import { useBlockProps, InspectorControls, ColorPalette } from '@wordpress/block-editor';
+import { PanelBody, ToggleControl, HorizontalRule, RangeControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -32,13 +32,25 @@ import './editor.scss';
  */
 
 import metadata from './block.json';
+import { Curve } from './components/curve';
 
 export default function Edit(props) {
+	console.log({ props});
+	const { className, ...blockProps } = useBlockProps();
 	return (
 		<>
-			<p { ...useBlockProps() }>
-				{ __( 'Curvy – hello from the editor!', metadata.textdomain ) }
-			</p>
+		<section className={`${className} alignfull`} {...blockProps}>
+			{props.attributes.enableTopCurve && (
+			<Curve
+				color={props.attributes.topColor}
+				flipX={props.attributes.topFlipX}
+				flipY={props.attributes.topFlipY} 
+				height={props.attributes.topHeight} 
+				width={props.attributes.topWidth} 
+			/>
+		)}
+		</section>
+			
 			<InspectorControls>
 				<PanelBody title={__('Top curve', metadata.textdomain)}>
 					<div style={ { display: 'flex' } }>
@@ -48,12 +60,75 @@ export default function Edit(props) {
 									enableTopCurve: isChecked,
 								});
 							}}
-							checked={props.attributes.enableTopCurve}
+							checked={ !!props.attributes.enableTopCurve }
 						/>
 						<span>
 							{ __( 'Enable top curve', metadata.textdomain ) }
 						</span>
 					</div>
+					{props.attributes.enableTopCurve && (
+						<>
+							<HorizontalRule />
+
+							<RangeControl 
+							min={100} 
+							max={300} 
+							value={props.attributes.topWidth || 100}
+							onChange={(newValue) => {
+								props.setAttributes({ topWidth: parseInt(newValue), });
+							}}
+							label={__("width", metadata.textdomain)} />
+
+							<RangeControl 
+							min={0} 
+							max={200} 
+							value={props.attributes.topHeight}
+							onChange={(newValue) => {
+								props.setAttributes({ topHeight: parseInt(newValue), });
+							}}
+							label={__("height", metadata.textdomain)} />
+
+							<HorizontalRule />
+							<div style={ { display: 'flex' } }>
+								<ToggleControl
+									onChange={(isChecked) => {
+										props.setAttributes({
+											topFlipX: isChecked,
+										});
+									}}
+									checked={ !!props.attributes.topFlipX }
+								/>
+								<span>
+									{ __( 'Flip horizontally', metadata.textdomain ) }
+								</span>
+							</div>
+							<div style={ { display: 'flex' } }>
+								<ToggleControl
+									onChange={(isChecked) => {
+										props.setAttributes({
+											topFlipY: isChecked,
+										});
+									}}
+									checked={ !!props.attributes.topFlipY }
+								/>
+								<span>
+									{ __( 'Flip vertically', metadata.textdomain ) }
+								</span>
+							</div>
+							<HorizontalRule />
+							<div>
+								<label>{__("Curve color", metadata.textdomain)}</label>
+								<ColorPalette 
+								value={props.attributes.topColor}
+								onChange={(newValue) => {
+									props.setAttributes({
+										topColor: newValue,
+									});
+								}}
+								/>
+							</div>
+						</>
+					)}
 				</PanelBody>
 			</InspectorControls>
 		</>

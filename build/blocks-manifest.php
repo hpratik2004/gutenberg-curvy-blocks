@@ -14,7 +14,57 @@ return array(
 			
 		),
 		'supports' => array(
-			'html' => false
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'link' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'padding' => true
+			)
+		),
+		'attributes' => array(
+			'style' => array(
+				'type' => 'object',
+				'default' => array(
+					'color' => array(
+						'background' => '#66af82'
+					),
+					'spacing' => array(
+						'padding' => array(
+							'top' => '80px',
+							'bottom' => '80px',
+							'left' => '50px',
+							'right' => '50px'
+						)
+					)
+				)
+			),
+			'enableTopCurve' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'topWidth' => array(
+				'type' => 'number',
+				'default' => 100
+			),
+			'topHeight' => array(
+				'type' => 'number',
+				'default' => 100
+			),
+			'topFlipX' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'topFlipY' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'topColor' => array(
+				'type' => 'string',
+				'default' => '#ffffff'
+			)
 		),
 		'textdomain' => 'curvy',
 		'editorScript' => 'file:./index.js',
