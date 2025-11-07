@@ -4,18 +4,18 @@ export const Curve = (props) => {
         
     return (
         <div 
-        style={{ 
-            position: "absolute", 
-            top: !props.isBottom ? 0 : "initial", 
-            bottom: props.isBottom ? 0 : "initial", 
-            left: 0, 
-            width: "100%", 
-            overflow: "hidden", 
-            height: props.height,
-            transform: `scaleX(${props.flipX ? -1 : 1}) rotate(${
+        style={{
+				position: "absolute",
+				top: !props.isBottom ? 0 : "initial",
+				bottom: props.isBottom ? 0 : "initial",
+				left: 0,
+				width: "100%",
+				overflow: "hidden",
+				height: props.height,
+				transform: `scaleX(${props.flipX ? -1 : 1}) rotate(${
 					props.flipY ? "180deg" : 0
 				}) scaleY(${props.isBottom ? -1 : 1})`,
-            }}
+			}}
         >
             <svg 
             preserveAspectRatio="none" 
